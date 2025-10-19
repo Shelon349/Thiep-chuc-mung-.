@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lời Chúc Từ Bích Ngọc</title>
+    <style>
+        /* PHẦN 1: CSS (Thiết kế & Hiệu ứng Hoa Rơi) */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f3e8; /* Màu nền kem nhạt */
+            font-family: 'Times New Roman', serif;
+            color: #4b4b4b;
+            text-align: center;
+            overflow: hidden; /* Ngăn cuộn trang */
+            position: relative; /* Quan trọng cho hiệu ứng hoa rơi */
+        }
+
+        #app {
+            width: 90%;
+            max-width: 600px;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            z-index: 10; /* Đảm bảo nội dung nằm trên hoa rơi */
+        }
+
+        /* Ẩn/Hiện nội dung */
+        .content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .content.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Trang Chào Mừng (Step 1) */
+        #welcome-screen h1 {
+            color: #c08497; /* Màu hồng cổ điển */
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        #welcome-screen p {
+            font-style: italic;
+            font-size: 1.1em;
+            color: #9c9c9c;
+        }
+        .start-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #c08497;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .start-btn:hover {
+            background-color: #a36f7e;
+        }
+
+        /* Trang Lời Chúc (Step 2 & 3) */
+        .message-card {
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px dashed #c08497;
+            border-radius: 10px;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .message-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .message-card h2 {
+            color: #d15f7a;
+            margin-top: 0;
+            border-bottom: 2px solid #f0b5c5;
+            padding-bottom: 5px;
+            font-size: 1.5em;
+        }
+        .message-card p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .signature {
+            margin-top: 30px;
+            font-style: italic;
+            font-size: 1.2em;
+            color: #c08497;
+        }
+
+        /* CSS cho hiệu ứng hoa rơi */
+        .petal {
+            position: absolute;
+            background-color: #ffb6c1; /* Màu hồng cánh hoa */
+            width: 15px;
+            height: 15px;
+            border-radius: 50%; /* Hình tròn */
+            opacity: 0;
+            pointer-events: none; /* Không cản trở click */
+            animation: fall linear infinite;
+            filter: blur(1px); /* Làm mờ nhẹ */
+            z-index: 1; /* Nằm dưới nội dung chính */
+        }
+
+        /* Tạo hình dạng cánh hoa bằng pseudo-elements */
+        .petal::before, .petal::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #ffb6c1;
+        }
+        .petal::before {
+            top: -5px;
+            left: -5px;
+        }
+        .petal::after {
+            top: -5px;
+            right: -5px;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translate(var(--x-start), -10vh) rotateZ(0deg) scale(0.8);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(var(--x-end), 100vh) rotateZ(720deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="background-music" loop>
+        <source src="canon-in-d.mp3" type="audio/mpeg">
+        Trình duyệt của bạn không hỗ trợ phần tử audio.
+    </audio>
+
+    <div id="app">
+
+        <div id="welcome-screen" class="content active">
+            <h1>💌 Lời Chúc Đặc Biệt Từ Bích Ngọc</h1>
+            <p>Nhấn "Mở Thư" để khám phá điều bất ngờ!</p>
+            <button class="start-btn" onclick="nextStep()">Mở Thư</button>
+        </div>
+
+        <div id="message1" class="content">
+            <div class="message-card">
+                <h2>💐 Gửi hai người bạn thân yêu của tôi,</h2>
+                <p>
+                    **Lời chúc đầu tiên** này xin gửi tới cả hai bạn! Chúc cả hai luôn rạng rỡ, xinh đẹp và tràn đầy năng lượng tích cực. Hy vọng mọi điều tốt đẹp nhất sẽ đến với hai bạn, xứng đáng với sự tử tế và nỗ lực của cả hai.
+                </p>
+            </div>
+            <p class="click-text" style="color:#c08497; font-weight: bold;" onclick="showNextMessage(2)">Đọc lời chúc tiếp theo (Click)</p>
+        </div>
+
+        <div id="message2" class="content">
+            <div class="message-card">
+                <h2>✨ Gửi hai người bạn tuyệt vời nhất,</h2>
+                <p>
+                    Mình rất vui vì có hai người bạn tuyệt vời như các bạn. Chúc hai bạn luôn giữ được nụ cười tỏa nắng và đạt được mọi mục tiêu trong công việc và cuộc sống. Mong tình bạn của chúng ta sẽ luôn bền chặt nhé!
+                </p>
+            </div>
+            <p class="click-text" style="color:#c08497; font-weight: bold;" onclick="showNextMessage(3)">Lời kết (Click)</p>
+        </div>
+
+        <div id="final-step" class="content">
+             <div class="message-card visible" style="text-align: center;">
+                <h2 style="border: none;">Xin chân thành cảm ơn! ❤️</h2>
+                <p>Mong rằng những lời chúc này sẽ mang lại niềm vui cho cả hai người bạn.</p>
+             </div>
+             <p class="signature">Thương mến,<br>**Trương Thị Bích Ngọc**</p>
+        </div>
+
+    </div>
+
+    <script>
+        // PHẦN 2: JAVASCRIPT (Logic)
+        let currentStep = 1;
+        
+        // Lấy phần tử audio
+        const music = document.getElementById('background-music');
+
+        function nextStep() {
+            // TỰ ĐỘNG PHÁT NHẠC KHI NGƯỜI DÙNG BẤM 'MỞ THƯ'
+            if (currentStep === 1) {
+                music.volume = 0.5; // Đặt âm lượng vừa phải (0.0 đến 1.0)
+                music.play().catch(error => {
+                    console.log("Tự động phát nhạc bị chặn:", error);
+                });
+            }
+
+            const currentElement = document.querySelector('.content.active');
+            if (currentElement) {
+                currentElement.classList.remove('active');
+            }
+
+            if (currentStep === 1) {
+                document.getElementById('message1').classList.add('active');
+                setTimeout(() => {
+                    document.querySelector('#message1 .message-card').classList.add('visible');
+                }, 100);
+                currentStep = 2;
+            } else if (currentStep === 2) {
+                document.getElementById('message1').classList.remove('active');
+                document.getElementById('message2').classList.add('active');
+                setTimeout(() => {
+                    document.querySelector('#message2 .message-card').classList.add('visible');
+                }, 100);
+                currentStep = 3;
+            } else if (currentStep === 3) {
+                document.getElementById('message2').classList.remove('active');
+                document.getElementById('final-step').classList.add('active');
+                currentStep = 4;
+            }
+        }
+
+        function showNextMessage(step) {
+            if (step === 2) {
+                document.querySelector('#message1 .click-text').style.display = 'none';
+                nextStep();
+            } else if (step === 3) {
+                document.querySelector('#message2 .click-text').style.display = 'none';
+                nextStep();
+            }
+        }
+
+        // PHẦN 3: JAVASCRIPT cho Hiệu ứng Hoa Rơi
+        const numberOfPetals = 30; // Số lượng cánh hoa
+        for (let i = 0; i < numberOfPetals; i++) {
+            createPetal();
+        }
+
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal'); // Hoặc 'heart-petal' nếu bạn muốn hình trái tim
+            document.body.appendChild(petal);
+
+            const startX = Math.random() * window.innerWidth;
+            const endX = startX + (Math.random() - 0.5) * 200; // Rơi lệch trái/phải một chút
+            const duration = Math.random() * 10 + 10; // Thời gian rơi từ 10s đến 20s
+            const delay = Math.random() * 15; // Độ trễ để các cánh hoa không rơi cùng lúc
+
+            petal.style.left = `${startX}px`;
+            petal.style.animationDuration = `${duration}s`;
+            petal.style.animationDelay = `${delay}s`;
+            petal.style.setProperty('--x-start', '0px');
+            petal.style.setProperty('--x-end', `${endX - startX}px`);
+
+            // Xóa cánh hoa sau khi rơi để tránh tràn DOM và tạo lại
+            petal.addEventListener('animationend', () => {
+                petal.remove();
+                createPetal(); // Tạo cánh hoa mới
+            });
+        }
+
+    </script>
+</body>
+</html>
